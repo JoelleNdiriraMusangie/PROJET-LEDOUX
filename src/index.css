@@ -1,0 +1,51 @@
+
+/* STYLE CSS du plateau de l'APP.JS */
+.App {
+  text-align: center;
+  padding: 20px;
+  background-color: bleu;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+
+/* Styles pour le titre */
+
+h1 {
+  font-size: 24px;
+  color: #333;
+  /* Couleur du titre */
+  margin-bottom: 20px;
+}
+
+
+/* Styles pour la grille */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(10, 70px);
+  /* 10 colonnes de 40px chacune */
+  grid-gap: 2px;
+  /* Espacement entre les cellules */
+  background-color: #222;
+  /* Couleur de fond de la grille */
+  padding: 10px;
+  /* Marge intérieure de la grille */
+}
+
+
+/* Styles pour les cellules de la grille */
+
+.grid>div {
+  background-color: grey;
+  /* Couleur de fond des cellules */
+  border: 1px solid white;
+  /* Bordure blanche autour des cellules */
+}
+
+
