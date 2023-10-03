@@ -34,6 +34,7 @@ export const App = () => {
     const pixiContainer = pixiContainerRef.current.appendChild(app.view);
 
     if (pixiContainer) {
+      //document.body.appendChild(app.view);
       pixiContainer.appendChild(app.view);
       const blurFilter = new BlurFilter(4);
 
