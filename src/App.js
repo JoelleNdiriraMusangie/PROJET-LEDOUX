@@ -62,7 +62,7 @@ const Grille = (g) => {
 
 // Pour arrêter le son
 // sound.stop();
-}
+//}
 
 
 
