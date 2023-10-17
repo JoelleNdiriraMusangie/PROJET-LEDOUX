@@ -2,8 +2,21 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { BlurFilter } from 'pixi.js';
 import { Stage, Container, Sprite, Text } from '@pixi/react';
 import { useMemo } from 'react';
-import Labyrinthe from './Labyrinthe'
+//import Wall from './components/Wall.js'
 
+
+//Pour les murs
+const map = [
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
+  [1, 0, 1, 0, 0, 0, 0, 1, 0, 1],
+  [1, 0, 1, 0, 1, 1, 0, 1, 0, 1],
+  [1, 0, 1, 0, 0, 0, 0, 1, 0, 1],
+  [1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+];
 
 
 export const App = () => {
@@ -11,9 +24,6 @@ export const App = () => {
   const gridSize = { width: 800, height: 600 }; // Taille de la grille
   const pacmanSize = { width: 50, height: 50 }; // Taille du PACMAN
   const [position, setPosition] = useState({ x: 400, y: 300 }); // Position initiale
-
-  const [ghost1, setGhost1] = useState({ x: 2, y: 2 }); // Position initiale du fantôme 1
-  const [ghost2, setGhost2] = useState({ x: 3, y: 3 }); // Position initiale du fantôme 2
 
   // Direction du mouvement automatique (0: immobile, 1: gauche, 2: droite, 3: haut, 4: bas)
   const [autoMoveDirection, setAutoMoveDirection] = useState(0);
@@ -120,8 +130,8 @@ export const App = () => {
       }
     };
 
-    // Démarrez le mouvement automatique toutes les 400 millisecondes (0.4 seconde)
-    const autoMoveInterval = setInterval(handleAutoMove, 400);
+    // Démarrez le mouvement automatique toutes les 250 millisecondes (0.25 seconde)
+    const autoMoveInterval = setInterval(handleAutoMove, 110);
 
     return () => {
       clearInterval(autoMoveInterval); // Arrêtez le mouvement automatique lorsque le composant est démonté
@@ -137,15 +147,10 @@ export const App = () => {
       
         {/* Ajoutez le PACMAN */}
         <Container x={position.x} y={position.y}>
-          <Sprite image="pacman.png" anchor={0.1} scale={0.09} />
+          <Sprite image="PACMAN.png" anchor={0.1} scale={0.09} />
           <Text text=" " anchor={{ x: 0.5, y: 0.5 }} filters={[blurFilter]} />
         </Container>
       </Container>
-      <div>
-      <div id="labyrinthe-container"></div>
-      <Labyrinthe />
-  </div> 
-      
     </Stage>
   );
 };
