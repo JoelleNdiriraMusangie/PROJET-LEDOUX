@@ -1,153 +1,37 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { BlurFilter } from 'pixi.js';
-import { Stage, Container, Sprite, Text } from '@pixi/react';
-import { useMemo } from 'react';
-import Labyrinthe from './Labyrinthe'
+import React, { useState, useEffect } from 'react';
+import GameBoard from './GameBoard'
+import Pacman from './pacman';
+import "./App.css"
 
 
 
-export const App = () => {
-  const blurFilter = useMemo(() => new BlurFilter(4), []);
-  const gridSize = { width: 800, height: 600 }; // Taille de la grille
-  const pacmanSize = { width: 50, height: 50 }; // Taille du PACMAN
-  const [position, setPosition] = useState({ x: 400, y: 300 }); // Position initiale
+const PacmanGame = () => {
+  const [pacmanPosition, setPacmanPosition] = useState({ x: 0, y: 0 });
+  const [score, setScore] = useState(0);
+  const [dots, setDots] = useState([]); // Tableau pour stocker les positions des points
 
-  const [ghost1, setGhost1] = useState({ x: 2, y: 2 }); // Position initiale du fantôme 1
-  const [ghost2, setGhost2] = useState({ x: 3, y: 3 }); // Position initiale du fantôme 2
+  // Fonction pour gérer le déplacement du Pac-Man
+  const movePacman = (direction) => {
+    // Mettez en œuvre la logique de déplacement du Pac-Man ici
+    // Mettez à jour la position de Pac-Man et vérifiez les collisions avec les points
+  };
 
-  // Direction du mouvement automatique (0: immobile, 1: gauche, 2: droite, 3: haut, 4: bas)
-  const [autoMoveDirection, setAutoMoveDirection] = useState(0);
-
+  // Gérez la logique du jeu, les collisions, la gestion des points, etc.
   useEffect(() => {
-    // Fonction pour gérer le mouvement automatique aléatoire
-    const handleAutoMove = () => {
-      const randomDirection = Math.floor(Math.random() * 5); // 0 à 4 (5 directions possibles)
-
-      // Évitez de choisir la direction opposée à la direction actuelle
-      if (randomDirection === 1 && autoMoveDirection === 2) return;
-      if (randomDirection === 2 && autoMoveDirection === 1) return;
-      if (randomDirection === 3 && autoMoveDirection === 4) return;
-      if (randomDirection === 4 && autoMoveDirection === 3) return;
-
-      setAutoMoveDirection(randomDirection);
-    };
-
-    // Démarrez le mouvement automatique toutes les 500 millisecondes (0.5 seconde)
-    const autoMoveInterval = setInterval(handleAutoMove, 400);
-
-    return () => {
-      clearInterval(autoMoveInterval); // Arrêtez le mouvement automatique lorsque le composant est démonté
-    };
-  }, [autoMoveDirection]);
-
-  // Fonction pour gérer le mouvement dirigé par les touches
-  const handleKeyDown = useCallback(
-    (e) => {
-      // Déplacez le personnage en réponse aux touches fléchées
-      switch (e.key) {
-        case 'ArrowLeft':
-          setPosition((prevPosition) => ({
-            ...prevPosition,
-            x: Math.max(prevPosition.x - 20, 0), // Limite gauche
-          }));
-          setAutoMoveDirection(0); // Arrête le mouvement automatique
-          break;
-        case 'ArrowRight':
-          setPosition((prevPosition) => ({
-            ...prevPosition,
-            x: Math.min(prevPosition.x + 20, gridSize.width - pacmanSize.width), // Limite droite
-          }));
-          setAutoMoveDirection(0); // Arrête le mouvement automatique
-          break;
-        case 'ArrowUp':
-          setPosition((prevPosition) => ({
-            ...prevPosition,
-            y: Math.max(prevPosition.y - 20, 0), // Limite supérieure
-          }));
-          setAutoMoveDirection(0); // Arrête le mouvement automatique
-          break;
-        case 'ArrowDown':
-          setPosition((prevPosition) => ({
-            ...prevPosition,
-            y: Math.min(prevPosition.y + 20, gridSize.height - pacmanSize.height), // Limite inférieure
-          }));
-          setAutoMoveDirection(0); // Arrête le mouvement automatique
-          break;
-        default:
-          break;
-      }
-    },
-    [gridSize.width, gridSize.height, pacmanSize.width, pacmanSize.height]
-  );
-
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [handleKeyDown]);
-
-  // Fonction pour gérer le mouvement automatique
-  useEffect(() => {
-    const handleAutoMove = () => {
-      switch (autoMoveDirection) {
-        case 1:
-          setPosition((prevPosition) => ({
-            ...prevPosition,
-            x: Math.max(prevPosition.x - 20, 0), // Limite gauche
-          }));
-          break;
-        case 2:
-          setPosition((prevPosition) => ({
-            ...prevPosition,
-            x: Math.min(prevPosition.x + 20, gridSize.width - pacmanSize.width), // Limite droite
-          }));
-          break;
-        case 3:
-          setPosition((prevPosition) => ({
-            ...prevPosition,
-            y: Math.max(prevPosition.y - 20, 0), // Limite supérieure
-          }));
-          break;
-        case 4:
-          setPosition((prevPosition) => ({
-            ...prevPosition,
-            y: Math.min(prevPosition.y + 20, gridSize.height - pacmanSize.height), // Limite inférieure
-          }));
-          break;
-        default:
-          break;
-      }
-    };
-
-    // Démarrez le mouvement automatique toutes les 400 millisecondes (0.4 seconde)
-    const autoMoveInterval = setInterval(handleAutoMove, 400);
-
-    return () => {
-      clearInterval(autoMoveInterval); // Arrêtez le mouvement automatique lorsque le composant est démonté
-    };
-  }, [autoMoveDirection, gridSize.width, gridSize.height, pacmanSize.width, pacmanSize.height]);
+    // Mettez en œuvre la logique du jeu ici
+  }, [pacmanPosition, dots, score]);
 
   return (
-    <Stage width={gridSize.width} height={gridSize.height}>
-
+    <div>
+      <h1>Pac-Man Game</h1>
+      <div>Score: {score}</div>
+        {/* Affichage du plateau de jeu ici */}
+        <GameBoard/>
+        <Pacman x={pacmanPosition.x} y={pacmanPosition.y} />
+        {/* Utilisez des composants React pour les murs, Pac-Man, les points, etc. */}
       
-      
-      <Container>
-      
-        {/* Ajoutez le PACMAN */}
-        <Container x={position.x} y={position.y}>
-          <Sprite image="pacman.png" anchor={0.1} scale={0.09} />
-          <Text text=" " anchor={{ x: 0.5, y: 0.5 }} filters={[blurFilter]} />
-        </Container>
-      </Container>
-      <div>
-      <div id="labyrinthe-container"></div>
-      <Labyrinthe />
-  </div> 
-      
-    </Stage>
+    </div>
   );
 };
 
-export default App;
+export default PacmanGame;

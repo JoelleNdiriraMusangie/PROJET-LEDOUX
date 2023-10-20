@@ -28,6 +28,74 @@
   color: #61dafb;
 }
 
+/*.game-board {
+ 
+  width: 800px;
+  height: 600px;
+  background: black; /* Couleur d'arrière-plan noire */
+  /*border: 2px solid #000;
+  position: relative;
+}*/
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(10, 40px); /* 10 colonnes avec une largeur de 40px chacune */
+  grid-template-rows: repeat(8, 40px); /* 8 lignes avec une hauteur de 40px chacune */
+  gap: 2px; /* Espacement entre les cellules */
+
+  /* Autres styles du plateau de jeu */
+}
+
+
+.murs {
+  background-color: blue; /* Couleur des murs (par exemple, bleu) */
+  display: grid;
+  grid-template-columns: repeat(5, 40px); /* Remplacez 5 par la largeur souhaitée */
+  grid-template-rows: repeat(5, 40px); /* Remplacez 5 par la hauteur souhaitée */
+  gap: 40px; /* Espacement entre les cellules */
+}
+
+.cell {
+  width: 40px; /* Largeur de chaque cellule */
+  height: 40px; /* Hauteur de chaque cellule */
+  border: 2px solid #000; /* Style de la bordure */
+}
+
+
+.wall {
+  background-color: blue; /* Couleur de tous les autres murs */
+
+}
+.game-board {
+  width: 800px; /* Largeur du plateau de jeu */
+  height: 600px; /* Hauteur du plateau de jeu */
+ 
+}
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(10, 40px); /* 10 colonnes avec une largeur de 40px chacune */
+  grid-template-rows: repeat(8, 40px); /* 8 lignes avec une hauteur de 40px chacune */
+  gap: 50px; /* Espacement entre les cellules */
+  
+}
+
+.pacman {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+ 
+}
+
+/*.pac-dot {
+  width: 10px;
+  height: 10px;
+  background-color: yellow;
+  border-radius: 50%; /* Pour créer un cercle */
+ /* margin: auto;
+}
+*/
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -36,3 +104,4 @@
     transform: rotate(360deg);
   }
 }
+
